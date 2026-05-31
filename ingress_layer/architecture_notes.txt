@@ -1,0 +1,30 @@
+1. Ingress Layer
+Where everything enters the system
+
+What it is:
+The Ingress Layer is the front door.
+It accepts:
+- Text messages (SMS, WhatsApp, chat)
+- Chat logs (web, app, customer support)
+- Voice calls (via live audio or recordings -> transcription)
+
+It also captures metadata, such as:
+- Timestamp of each message
+- Channel (SMS, call, Telegram, etc.)
+- Sender identifiers (masked if needed)
+- Message order and gaps between messages
+
+Why it matters (hidden reason):
+Scams are time-sensitive and channel-specific.
+Examples:
+- Voice scams escalate faster than text
+- WhatsApp scams behave differently from SMS
+- Time gaps can signal: Script switching, Human handoff, Bot vs human
+Without metadata, you lose behavioral signals.
+
+What breaks if you skip this:
+- You canʼt reconstruct the scam timeline
+- You canʼt tell if urgency is artificial
+- Voice-based scams become impossible to analyze properly
+
+👉 This layer is not “dumb input.” Itʼs evidence collection.

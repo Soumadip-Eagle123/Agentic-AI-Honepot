@@ -1,0 +1,7 @@
+langchain
+langchain-google-genai
+langchain-community
+langchain-tavily
+google-generativeai
+python-dotenv
+fastapi

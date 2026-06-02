@@ -134,7 +134,7 @@ LLM---Honey-Pot/
 ### Step 1 — Clone the repository
 
 ```bash
-git clone https://github.com/DarshanSubbaraj/LLM---Honey-Pot.git
+git clone https://github.com/Jairus25/LLM---Honey-Pot
 cd LLM---Honey-Pot/ml_model
 ```
 

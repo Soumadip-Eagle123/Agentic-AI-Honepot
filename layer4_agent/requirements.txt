@@ -2,6 +2,7 @@ langchain
 langchain-google-genai
 langchain-community
 langchain-tavily
+langchain-core
 google-generativeai
 python-dotenv
 fastapi

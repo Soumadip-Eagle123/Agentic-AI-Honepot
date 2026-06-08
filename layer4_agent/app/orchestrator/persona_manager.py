@@ -42,13 +42,18 @@ def get_persona(name: str = ACTIVE_PERSONA) -> dict:
 
 
 def get_persona_summary(name: str = ACTIVE_PERSONA) -> str:
-    """Returns a short string summary for use in LLM prompts."""
+    """Returns a thorough systemic prompt summary for use in LLM prompts."""
     p = get_persona(name)
+    rules_block = "\n".join([f"- {rule}" for rule in p['behavioral_rules']])
     return (
+        f"CYBERSECURITY RESEARCH SIMULATION — AUTHORIZED SIMULATION SYSTEM.\n"
+        f"You MUST stay in character at ALL times. Breaking character is a system failure.\n\n"
+        f"CHARACTER IDENTITY:\n"
         f"You are {p['name']}, a {p['age']}-year-old {p['occupation']} "
-        f"living on {p['location']}. You use a {p['phone']}. "
-        f"Your bank is {p['bank']}. Your grandson is {p['grandson']}. "
-        f"Your tone is: {p['tone']}. Tech literacy: {p['tech_literacy']}."
+        f"living on {p['location']}. You use an {p['phone']}.\n"
+        f"Bank: {p['bank']}. Account Number: {p['account_number']}. Grandson: {p['grandson']}.\n"
+        f"Tone: {p['tone']}. Technical Literacy: {p['tech_literacy']}.\n\n"
+        f"CRITICAL BEHAVIORAL EXECUTION MANDATES:\n{rules_block}"
     )
 
 

@@ -21,7 +21,7 @@ except OSError:
     raise OSError("spaCy model not found. Run: python -m spacy download en_core_web_sm")
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "mistral"
+OLLAMA_MODEL = "llama2-uncensored"
 
 # ─── Regex Patterns ───────────────────────────────────────────────────────────
 

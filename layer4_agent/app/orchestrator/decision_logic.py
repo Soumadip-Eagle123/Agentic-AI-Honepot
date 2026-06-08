@@ -1,6 +1,5 @@
 # layer4_agent/app/orchestrator/decision_logic.py
 
-# Thresholds — matching what fsm.py already uses
 OBSERVE_THRESHOLD = 0.30
 SUSPECT_THRESHOLD = 0.70
 EXTRACT_THRESHOLD = 0.70

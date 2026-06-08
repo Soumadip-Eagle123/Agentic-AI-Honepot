@@ -1,8 +1,10 @@
-# app/orchestrator/fsm.py
+# layer4_agent/app/orchestrator/fsm.py
 from langgraph.graph import StateGraph, START, END
 from langchain_core.messages import AIMessage, HumanMessage
 from app.orchestrator.state import HoneypotGraphState
 from app.agent.react_agent import HoneypotAgent
+
+from app.orchestrator.persona_manager import get_persona_summary
 
 agent_core = HoneypotAgent()
 
@@ -15,24 +17,33 @@ def passive_observation_node(state: HoneypotGraphState):
 
 def active_honeypot_node(state: HoneypotGraphState):
     print("\n[GRAPH NODE]: Routing to 'Active Honeypot Engagement' State!")
-    
+
     last_human_message = [msg.content for msg in state["messages"] if isinstance(msg, HumanMessage)][-1]
+    persona_name = state.get("current_persona", "Margaret")
     
-    agent_response_text = agent_core.run_query(last_human_message, max_turns=3)
-    
+    dynamic_instruction = get_persona_summary(persona_name)
+
+    print(f"🧠 [NODE DEBUG]: Injecting full behavioral context tracking block into ReAct cycle.")
+
+    agent_response_text = agent_core.run_query(
+        initial_prompt=last_human_message,
+        system_instruction_override=dynamic_instruction,
+        max_turns=3
+    )
+
     return {
-        "messages": [AIMessage(content=agent_response_text)],
-        "current_persona": "Margaret"
+        "messages": AIMessage(content=agent_response_text),
+        "current_persona": persona_name
     }
 
 def evaluate_scam_threshold_edge(state: HoneypotGraphState) -> str:
     score = state.get("scam_probability", 0.0)
     print(f"\n[CONDITIONAL EDGE]: Auditing Scam Probability Matrix -> Score: {score:.2f}")
-    
+
     if score >= 0.70:
-        print("[Edge Router Trigger]: Score crosses 0.70 threshold! Deploying Honeypot Trap.")
+        print("[Edge Router Trigger]: Score crosses threshold! Deploying Honeypot Trap.")
         return "trigger_trap"
-    
+
     print("[Edge Router Trigger]: Score is safe. Remaining in passive observation.")
     return "remain_passive"
 
@@ -50,5 +61,5 @@ def compile_orchestrator_graph():
     )
     workflow.add_edge("observation_state", END)
     workflow.add_edge("honeypot_trap_state", END)
-    
+
     return workflow.compile()

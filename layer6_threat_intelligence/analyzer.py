@@ -16,7 +16,7 @@ from layer6_threat_intelligence.schemas import (
 )
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "mistral"
+OLLAMA_MODEL = "llama2-uncensored"
 
 
 # ==========================================================

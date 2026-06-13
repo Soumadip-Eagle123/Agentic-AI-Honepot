@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Honeypot SOC Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon">🕵️‍♂️</div>
+                <div class="brand-text">
+                    <h1>HONEYPOT</h1>
+                    <span>Layer 7 Threat Portal</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" data-tab="dashboard">
+                    <span class="icon">📊</span> Dashboard
+                </button>
+                <button class="nav-btn" data-tab="incidents">
+                    <span class="icon">🚨</span> Incident Queue
+                </button>
+                <button class="nav-btn" data-tab="migrations">
+                    <span class="icon">⚙️</span> Database Control
+                </button>
+            </nav>
+            
+            <div class="role-selector-widget">
+                <label for="user-role-select">Access View Profile</label>
+                <select id="user-role-select" class="styled-select">
+                    <option value="soc">🛡️ SOC Analyst</option>
+                    <option value="law_enforcement">⚖️ Law Enforcement</option>
+                    <option value="developer">💻 System Developer</option>
+                </select>
+                <div class="role-description" id="role-desc-text">
+                    PII Masked. Scammer IOCs partially obfuscated.
+                </div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="dot pulse-green"></span>
+                    <span>System Secure</span>
+                </div>
+                <div class="version-badge">v1.2.0</div>
+            </div>
+        </aside>
+
+        <!-- Main Dashboard View -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-title">
+                    <h2 id="page-title">Threat Intel Overview</h2>
+                    <p id="page-subtitle">Real-time indicators and campaign analytics</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" id="refresh-all-btn">🔄 Refresh Data</button>
+                    <button class="btn btn-primary" id="btn-mock-session">➕ Mock Session</button>
+                </div>
+            </header>
+
+            <!-- Tab: Dashboard Content -->
+            <section class="tab-content active" id="tab-dashboard">
+                <!-- Metrics Grid -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon bg-violet">🚨</div>
+                        <div class="metric-info">
+                            <h3 id="stat-total-incidents">0</h3>
+                            <span>Total Incidents</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon bg-red">🔥</div>
+                        <div class="metric-info">
+                            <h3 id="stat-critical-alerts">0</h3>
+                            <span>Critical Severity</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon bg-cyan">📈</div>
+                        <div class="metric-info">
+                            <h3 id="stat-avg-threat">0%</h3>
+                            <span>Avg Threat Score</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon bg-green">🛡️</div>
+                        <div class="metric-info">
+                            <h3 id="stat-db-version">v1.0</h3>
+                            <span>DB Schema Version</span>
+                        </div>
+                </div>
+
+                <!-- System Status Overview Dashboard -->
+                <div class="dashboard-overview-grid">
+                    <div class="glass-panel overview-card">
+                        <h3>Agentic Honeypot Threat Matrix</h3>
+                        <p class="section-subtitle">Real-time status of conversational baiting campaigns and intelligence harvesting.</p>
+                        <div class="status-grid">
+                            <div class="status-row">
+                                <span>LLM Orchestrator (Ollama LLaMA-3)</span>
+                                <span class="badge badge-finished">Active</span>
+                            </div>
+                            <div class="status-row">
+                                <span>Linguistic Signal Classifier (Layer 2)</span>
+                                <span class="badge badge-finished">Calibrated</span>
+                            </div>
+                            <div class="status-row">
+                                <span>Entity Harvester (spaCy NER)</span>
+                                <span class="badge badge-finished">Loaded</span>
+                            </div>
+                            <div class="status-row">
+                                <span>Telegram Ingress Channel</span>
+                                <span class="badge badge-finished">Polling</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-panel overview-card">
+                        <h3>Scam Campaign Analytics</h3>
+                        <p class="section-subtitle">Tactics and campaign profiles identified across active intercept channels.</p>
+                        <div class="analytics-row-list">
+                            <div class="analytics-row">
+                                <span>Authority Impersonation (Bank/RBI)</span>
+                                <span class="badge badge-critical">72%</span>
+                            </div>
+                            <div class="analytics-row">
+                                <span>Urgency & Account Suspension Fear</span>
+                                <span class="badge badge-high">65%</span>
+                            </div>
+                            <div class="analytics-row">
+                                <span>Financial Manipulation (UPI/OTP)</span>
+                                <span class="badge badge-high">58%</span>
+                            </div>
+                            <div class="analytics-row">
+                                <span>Phishing URLs & Domain Spreading</span>
+                                <span class="badge badge-medium">24%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab: Incident Queue Content -->
+            <section class="tab-content" id="tab-incidents">
+                <!-- Main Split-Screen Panel -->
+                <div class="dashboard-split">
+                    <!-- Left Column: Incidents List -->
+                    <div class="split-left glass-panel">
+                        <div class="panel-header">
+                            <h3>Active & Resolved Cases</h3>
+                            <div class="search-bar">
+                                <input type="text" id="incidents-search" placeholder="Search Session ID...">
+                            </div>
+                        </div>
+                        <div class="incidents-filter-bar">
+                            <button class="filter-chip active" data-filter="all">All</button>
+                            <button class="filter-chip" data-filter="CRITICAL">Critical</button>
+                            <button class="filter-chip" data-filter="HIGH">High</button>
+                            <button class="filter-chip" data-filter="MEDIUM">Med/Low</button>
+                        </div>
+                        <div class="incidents-list" id="incidents-list-container">
+                            <div class="loading-spinner">Loading incident database...</div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Case Deep Dive -->
+                    <div class="split-right" id="case-deep-dive-panel">
+                        <!-- Default state when no case is selected -->
+                        <div class="empty-state glass-panel" id="no-case-selected">
+                            <div class="empty-state-icon">🕵️‍♂️</div>
+                            <h4>No Incident Selected</h4>
+                            <p>Select a honeypot conversation session from the queue to run analytics, view timeline indicators, and audit turn-by-turn scores.</p>
+                        </div>
+
+                        <!-- Active Deep Dive Panel -->
+                        <div class="case-container hidden" id="case-details-wrapper">
+                            <!-- Incident Title Banner -->
+                            <div class="case-header-banner glass-panel">
+                                <div class="case-meta">
+                                    <div class="case-title-row">
+                                        <h3 id="detail-session-id">Session #12345</h3>
+                                        <span class="badge" id="detail-severity-badge">CRITICAL</span>
+                                    </div>
+                                    <div class="case-subtitle-row">
+                                        <span>Channel: <strong id="detail-channel">Telegram</strong></span> | 
+                                        <span>Region: <strong id="detail-region">US-EAST</strong></span> | 
+                                        <span>Persona: <strong id="detail-persona">Margaret (Honeypot)</strong></span>
+                                    </div>
+                                </div>
+                                <div class="case-actions">
+                                    <button class="btn btn-secondary btn-sm" id="btn-run-pipeline">⚡ Force Run L5/L6 Pipeline</button>
+                                    <button class="btn btn-primary btn-sm" id="btn-export-intel">📥 Export Forensic JSON</button>
+                                </div>
+                            </div>
+
+                            <!-- Case Analytics Tabs Navigation -->
+                            <div class="details-tab-nav">
+                                <button class="details-tab-btn active" data-details-tab="overview">🎯 Threat Intelligence</button>
+                                <button class="details-tab-btn" data-details-tab="audit">📈 Audit Trail & Transcript</button>
+                            </div>
+
+                            <!-- Case Tab 1: Threat Intelligence -->
+                            <div class="details-tab-content active" id="details-tab-overview">
+                                <div class="details-grid">
+                                    <!-- Key Metrics -->
+                                    <div class="details-row-1 glass-panel">
+                                        <div class="threat-meter-container">
+                                            <span class="section-title">Threat Score</span>
+                                            <div class="threat-gauge">
+                                                <div class="gauge-fill" id="detail-gauge-fill" style="width: 85%;"></div>
+                                                <div class="gauge-text" id="detail-threat-score-val">85%</div>
+                                            </div>
+                                        </div>
+                                        <div class="behavior-meters">
+                                            <span class="section-title">Linguistic Profiling</span>
+                                            <div class="meter-group">
+                                                <div class="meter-label">Urgency Pressure <span id="val-meter-urgency">0.8</span></div>
+                                                <div class="meter-bar"><div class="meter-fill bg-amber" id="fill-meter-urgency" style="width: 80%;"></div></div>
+                                            </div>
+                                            <div class="meter-group">
+                                                <div class="meter-label">Authority Claims <span id="val-meter-authority">0.6</span></div>
+                                                <div class="meter-bar"><div class="meter-fill bg-violet" id="fill-meter-authority" style="width: 60%;"></div></div>
+                                            </div>
+                                            <div class="meter-group">
+                                                <div class="meter-label">Question Skip Rate <span id="val-meter-skip">0.5</span></div>
+                                                <div class="meter-bar"><div class="meter-fill bg-cyan" id="fill-meter-skip" style="width: 50%;"></div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Extracted Entities (Indicators) -->
+                                    <div class="details-card glass-panel">
+                                        <h4>Harvested Adversary Indicators</h4>
+                                        <div class="entities-grid">
+                                            <div class="entity-group">
+                                                <h5>📞 Scammer Phone Numbers</h5>
+                                                <ul id="list-intel-phones"><li class="empty-list">None extracted</li></ul>
+                                            </div>
+                                            <div class="entity-group">
+                                                <h5>💳 Scammer UPI IDs</h5>
+                                                <ul id="list-intel-upis"><li class="empty-list">None extracted</li></ul>
+                                            </div>
+                                            <div class="entity-group">
+                                                <h5>🏦 Target Bank Accounts</h5>
+                                                <ul id="list-intel-accounts"><li class="empty-list">None extracted</li></ul>
+                                            </div>
+                                            <div class="entity-group">
+                                                <h5>🔗 Malicious URLs / Domains</h5>
+                                                <ul id="list-intel-urls"><li class="empty-list">None extracted</li></ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Campaign & LLM Analyst Summary -->
+                                    <div class="details-row-2">
+                                        <div class="details-card glass-panel">
+                                            <h4>Campaign Correlation</h4>
+                                            <div class="campaign-info">
+                                                <div class="campaign-stat">
+                                                    <span id="detail-linked-cases-count">0</span>
+                                                    <span>Linked Conversations</span>
+                                                </div>
+                                                <div class="campaign-stat">
+                                                    <span id="detail-shared-artifacts-count">0</span>
+                                                    <span>Shared Indicators</span>
+                                                </div>
+                                            </div>
+                                            <h5>Shared Identifiers Across Campaigns:</h5>
+                                            <div id="detail-shared-artifacts-list" class="shared-tags">
+                                                <span class="empty-list">None</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="details-card glass-panel">
+                                            <h4>LLM Analyst Assessment</h4>
+                                            <p class="summary-box" id="detail-llm-summary">
+                                                Analyzing conversation triggers...
+                                            </p>
+                                            <div class="playbook-box">
+                                                <h5>🔧 Recommended Playbook Action:</h5>
+                                                <p id="detail-recommended-action">None</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Scam Progression Timeline -->
+                                    <div class="details-card glass-panel">
+                                        <h4>Scammer Lifecycle Timeline</h4>
+                                        <div class="timeline-stepper">
+                                            <div class="step">
+                                                <div class="step-badge active">1</div>
+                                                <div class="step-content">
+                                                    <h6>Hook (Approach)</h6>
+                                                    <p id="timeline-hook">No data</p>
+                                                </div>
+                                            </div>
+                                            <div class="step">
+                                                <div class="step-badge">2</div>
+                                                <div class="step-content">
+                                                    <h6>Trust Building</h6>
+                                                    <p id="timeline-trust">No data</p>
+                                                </div>
+                                            </div>
+                                            <div class="step">
+                                                <div class="step-badge">3</div>
+                                                <div class="step-content">
+                                                    <h6>Pressure (Fear & Urgency)</h6>
+                                                    <p id="timeline-pressure">No data</p>
+                                                </div>
+                                            </div>
+                                            <div class="step">
+                                                <div class="step-badge">4</div>
+                                                <div class="step-content">
+                                                    <h6>Payment Attempt</h6>
+                                                    <p id="timeline-payment">No data</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Case Tab 2: Audit Trail & Transcript -->
+                            <div class="details-tab-content" id="details-tab-audit">
+                                <div class="audit-layout">
+                                    <!-- Dynamic Confidence Flow Chart -->
+                                    <div class="glass-panel chart-container-panel">
+                                        <h4>Scam Confidence Audit Flow ($p_{scam}$)</h4>
+                                        <p class="section-subtitle">Real-time risk scoring progression mapped across conversation turns</p>
+                                        <div class="chart-wrapper">
+                                            <canvas id="confidence-flow-canvas" width="600" height="200"></canvas>
+                                        </div>
+                                    </div>
+
+                                    <!-- Conversation Transcript -->
+                                    <div class="glass-panel transcript-panel">
+                                        <div class="transcript-header">
+                                            <h4>Honeypot Audit Trail</h4>
+                                            <div class="filter-notes">
+                                                <span>Showing masked chat turns. Toggling the role changes PII visibility.</span>
+                                            </div>
+                                        </div>
+                                        <div class="transcript-messages" id="audit-transcript-messages">
+                                            <!-- Message turns filled dynamically -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab: Database Control & Migrations -->
+            <section class="tab-content" id="tab-migrations">
+                <div class="migrations-grid">
+                    <!-- Left: Control & Applied list -->
+                    <div class="glass-panel card-control">
+                        <h3>Database Version Controller</h3>
+                        <p class="section-subtitle">Manage versioned database schemas to handle evolving scam variations safely over time.</p>
+                        
+                        <div class="version-status-indicator">
+                            <div class="version-info-box">
+                                <span class="label">Current Schema Version</span>
+                                <h2 id="migration-current-version">v0.0.0</h2>
+                            </div>
+                            <button class="btn btn-primary" id="btn-trigger-migration">⚡ Apply Pending Migrations</button>
+                        </div>
+
+                        <h4>Applied Migration Changelog</h4>
+                        <ul class="changelog-list" id="applied-migrations-list">
+                            <li>Loading migrations log...</li>
+                        </ul>
+                    </div>
+
+                    <!-- Right: Table Schema Details -->
+                    <div class="glass-panel card-tables">
+                        <h3>Active Schema Tables</h3>
+                        <p class="section-subtitle">SQLite structure properties of the active database tables</p>
+                        <div id="database-tables-definition">
+                            <div class="loading-spinner">Querying schema tables...</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Mock Session Modal -->
+    <div class="modal hidden" id="mock-session-modal">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h3>Simulate Incoming Scam Conversation</h3>
+                <button class="close-btn" id="btn-close-modal">✖</button>
+            </div>
+            <div class="modal-body">
+                <form id="mock-session-form">
+                    <div class="form-group">
+                        <label for="mock-session-id">Session ID (e.g., chat ID)</label>
+                        <input type="text" id="mock-session-id" class="form-control" required placeholder="e.g. 78291039">
+                    </div>
+                    <div class="form-group">
+                        <label for="mock-channel">Channel</label>
+                        <select id="mock-channel" class="form-control">
+                            <option value="telegram">Telegram Polling</option>
+                            <option value="whatsapp">WhatsApp Business</option>
+                            <option value="sms">SMS Gateway</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mock-sender">Sender Name</label>
+                        <select id="mock-sender" class="form-control">
+                            <option value="scammer">Adversary (Scammer)</option>
+                            <option value="Margaret">Margaret (Victim Persona)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mock-message">Message text</label>
+                        <textarea id="mock-message" class="form-control" rows="4" required placeholder="e.g. This is SBI Manager. Send UPI PIN immediately or account blocked!"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="mock-p-scam">Simulated Scam Confidence ($p_{scam}$)</label>
+                        <input type="range" id="mock-p-scam" min="0" max="1" step="0.05" value="0.85" oninput="this.nextElementSibling.value = this.value">
+                        <output>0.85</output>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary" id="btn-cancel-modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Inject Message Turn</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
